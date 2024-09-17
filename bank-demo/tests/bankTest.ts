@@ -76,3 +76,23 @@ try {
 } catch (_) {
     console.log("Scenario 3 - withdrawal feature passed - invalid account caught");
 }
+
+// Scenario 1 - Balance Check Feature - Successful Check
+const balance = bnk.checkBalance("1002304001");  // Check balance of Jane Doe's account
+try {
+    if (balance === 500) {  // Balance should be 500 after deposit
+        console.log("Scenario 1 - balance check feature passed - valid account");
+    } else {
+        console.log("Scenario 1 - balance check feature failed - incorrect balance");
+    }
+} catch (_) {
+    console.log("Scenario 1 - balance check feature failed");
+}
+
+// Scenario 2 - Balance Check Feature - Invalid Account
+try {
+    bnk.checkBalance("99999999999");  // Invalid account number
+    console.log("Scenario 2 - balance check feature failed - invalid account not caught");
+} catch (_) {
+    console.log("Scenario 2 - balance check feature passed - invalid account caught");
+}
