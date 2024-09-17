@@ -26,6 +26,7 @@ export default class Bank {
      * @param name -- name of customer
      * @param age -- age of customer
      * @param accountNumber -- unique account number for each customer
+     * @returns -- newly created bank account
      */
     public createAccount(name: string, age: number, accountNumber: string): BankAccount {
         const isAccExists = this.findAccount(accountNumber);
@@ -36,5 +37,25 @@ export default class Bank {
         const newAccount: BankAccount = { name, age, accountNumber, balance: 0 };
         this.accounts.push(newAccount);
         return newAccount;
+    }
+
+    /**
+     * Deposit money to a bank account
+     * @param accountNumber -- account number of the account to deposit money
+     * @param amount -- amount to deposit
+     * @returns -- updated bank account with new balance if true
+     */
+    public deposit(accountNumber: string, amount: number): boolean {
+        if (amount <= 0) {
+            throw new Error("Deposit amount must be postive");
+        }
+
+        const account = this.findAccount(accountNumber);
+        if (!account) {
+            throw new Error("Invalid account number");
+        }
+
+        account.balance += amount;
+        return true;
     }
 }
