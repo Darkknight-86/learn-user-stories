@@ -46,7 +46,7 @@ export default class Bank {
      * @returns -- updated bank account with new balance if true
      */
     public deposit(accountNumber: string, amount: number): boolean {
-        if (amount <= 0) {
+        if (amount <= -1) {
             throw new Error("Deposit amount must be postive");
         }
 
@@ -56,6 +56,30 @@ export default class Bank {
         }
 
         account.balance += amount;
+        return true;
+    }
+
+    /**
+     * Withdraw money from a bank account
+     * @param accountNumber -- account number of the account to withdraw money
+     * @param amount -- amount to withdraw
+     * @returns -- updated bank account with new balance if true
+     */
+    public withdraw(accountNumber: string, amount: number): boolean {
+        if (amount <= -1) {
+            throw new Error("Withdrawal amount must be postive");
+        }
+
+        const account = this.findAccount(accountNumber);
+        if (!account) {
+            throw new Error("Invalid account number");
+        }
+
+        if (account.balance < amount) {
+            throw new Error("Insufficient funds");
+        }
+
+        account.balance -= amount;
         return true;
     }
 }
